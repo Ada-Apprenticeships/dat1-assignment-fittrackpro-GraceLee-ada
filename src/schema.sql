@@ -197,8 +197,112 @@ CREATE TABLE memberships(
     type                    VARCHAR(15),
     start_date              DATE,
     end_date                DATE,
-    class_id                INTEGER,
-    staff_id                INTEGER,
-    FOREIGN KEY(class_id) REFERENCES classes(class_id),
-    FOREIGN KEY(staff_id) REFERENCES staff(staff_id)
+    status                  VARCHAR(10), --CHECK IF ACTIVE/INACTIVE 
+    member_id               INTEGER,
+    FOREIGN KEY(member_id) REFERENCES members(member_id)
 );
+
+INSERT INTO memberships (member_id, type, start_date, end_date, status)
+VALUES
+(1, 'Premium', '2024-11-01', '2025-10-31', 'Active'),
+(2, 'Basic', '2024-11-05', '2025-11-04', 'Active'),
+(3, 'Premium', '2024-11-10', '2025-11-09', 'Active'),
+(4, 'Basic', '2024-11-15', '2025-11-14', 'Active'),
+(5, 'Premium', '2024-11-20', '2025-11-19', 'Active'),
+(6, 'Basic', '2024-11-25', '2025-11-24', 'Inactive'),
+(7, 'Premium', '2024-12-01', '2025-11-30', 'Active'),
+(8, 'Basic', '2024-12-05', '2025-12-04', 'Active'),
+(9, 'Premium', '2024-12-10', '2025-12-09', 'Active'),
+(10, 'Basic', '2024-12-15', '2025-12-14', 'Inactive'),
+(11, 'Premium', '2024-12-20', '2025-12-19', 'Active'),
+(12, 'Basic', '2024-12-25', '2025-12-24', 'Active'),
+(13, 'Premium', '2025-01-01', '2025-12-31', 'Active'),
+(14, 'Basic', '2025-01-05', '2026-01-04', 'Inactive'),
+(15, 'Premium', '2025-01-10', '2026-01-09', 'Active');
+
+--Attendance--------------------------------------------------------
+DROP TABLE IF EXISTS attendance;
+
+CREATE TABLE attendance(
+    attendance_id           INTEGER PRIMARY KEY,
+    check_in_time           VARCHAR(19),
+    check_out_time          VARCHAR(19),
+    member_id               INTEGER,
+    location_id             INTEGER,
+    FOREIGN KEY(member_id) REFERENCES members(member_id)
+    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+);
+
+INSERT INTO attendance (member_id, location_id, check_in_time, check_out_time)
+VALUES 
+(1, 1, '2024-11-01 09:00:00', '2024-11-01 10:30:00'),
+(2, 2, '2024-11-15 17:30:00', '2024-11-15 19:00:00'),
+(3, 1, '2024-12-03 08:00:00', '2024-12-03 09:15:00'),
+(4, 2, '2024-12-20 12:00:00', '2024-12-20 13:30:00'),
+(5, 1, '2025-01-05 16:00:00', '2025-01-05 17:45:00'),
+(6, 2, '2025-01-10 07:30:00', '2025-01-10 08:45:00'),
+(7, 1, '2025-01-15 18:00:00', '2025-01-15 19:30:00'),
+(8, 2, '2025-01-20 10:00:00', '2025-01-20 11:15:00'),
+(9, 1, '2025-01-25 14:30:00', '2025-01-25 16:00:00'),
+(10, 2, '2025-01-28 19:00:00', '2025-01-28 20:30:00');
+
+--Class Attendance--------------------------------------------
+DROP TABLE IF EXISTS class_attendance;
+
+CREATE TABLE class_attendance(
+    class_attendance_id     INTEGER PRIMARY KEY,
+    attendance_status       VARCHAR(10), --CHECK IF REGISTERED|ATTENDED|UNATTENDED
+    member_id               INTEGER,
+    schedule_id             INTEGER,
+    FOREIGN KEY(member_id) REFERENCES members(member_id)
+    FOREIGN KEY(schedule_id) REFERENCES class_schedule(schedule_id)
+);
+
+INSERT INTO class_attendance (schedule_id, member_id, attendance_status)
+VALUES 
+(1, 1, 'Attended'),
+(2, 2, 'Attended'),
+(3, 3, 'Attended'),
+(4, 4, 'Attended'),
+(5, 5, 'Attended'),
+(6, 6, 'Registered'),
+(7, 7, 'Registered'),
+(8, 8, 'Registered'),
+(1, 9, 'Attended'),
+(2, 10, 'Unattended'),
+(3, 11, 'Attended'),
+(4, 12, 'Unattended'),
+(5, 13, 'Attended'),
+(6, 1, 'Registered'),
+(7, 2, 'Registered'),
+(8, 3, 'Registered');
+
+--Payments---------------------------------------------------
+DROP TABLE IF EXISTS payments;
+
+CREATE TABLE payments(
+    payment_id              INTEGER PRIMARY KEY,
+    amount                  DECIMAL(10,2),
+    payment_date            DATE,
+    payment_method          VARCHAR(20), --CHECK IF CREDIT CARD ETC.
+    payment_type            VARCHAR(30), --CHECK IF MONTHLY MEMBERSHIP FEE ETC.
+    member_id               INTEGER,
+    FOREIGN KEY(member_id) REFERENCES members(member_id)
+);
+
+INSERT INTO payments (member_id, amount, payment_date, payment_method, payment_type)
+VALUES 
+(1, 50.00, '2024-11-01 10:00:00', 'Credit Card', 'Monthly membership fee'),
+(2, 30.00, '2024-11-05 14:30:00', 'Bank Transfer', 'Monthly membership fee'),
+(3, 50.00, '2024-11-10 09:15:00', 'Credit Card', 'Monthly membership fee'),
+(4, 30.00, '2024-11-15 16:45:00', 'PayPal', 'Monthly membership fee'),
+(5, 50.00, '2024-11-20 11:30:00', 'Credit Card', 'Monthly membership fee'),
+(6, 30.00, '2024-11-25 13:00:00', 'Bank Transfer', 'Monthly membership fee'),
+(7, 50.00, '2024-12-01 10:30:00', 'Credit Card', 'Monthly membership fee'),
+(8, 30.00, '2024-12-05 15:45:00', 'PayPal', 'Monthly membership fee'),
+(9, 50.00, '2024-12-10 08:00:00', 'Credit Card', 'Monthly membership fee'),
+(10, 30.00, '2024-12-15 17:30:00', 'Bank Transfer', 'Monthly membership fee'),
+(11, 15.00, '2025-01-16 09:00:00', 'Cash', 'Day pass'),
+(12, 15.00, '2025-01-16 10:30:00', 'Credit Card', 'Day pass'),
+(13, 15.00, '2025-01-17 14:00:00', 'Cash', 'Day pass'),
+(14, 15.00, '2025-01-18 11:15:00', 'Credit Card', 'Day pass');
