@@ -37,7 +37,7 @@ PRAGMA foreign_key = ON;
 DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
-    location_id   VARCHAR(10) PRIMARY KEY,
+    location_id   INTEGER PRIMARY KEY,
     name          VARCHAR(100),
     address       VARCHAR(100),
     phone_number  VARCHAR(20),
@@ -84,3 +84,82 @@ VALUES
 ('Olivia', 'Clark', 'olivia.c@email.com', '555-2121', '1993-09-08', '2025-01-20', 'Peter Clark', '555-2122');
 
 --Staff
+DROP TABLE IF EXISTS staff;
+
+CREATE TABLE staff(
+    staff_id                VARCHAR(10) PRIMARY KEY,
+    first_name              VARCHAR(100),
+    last_name               VARCHAR(100),
+    email                   VARCHAR(100),
+    phone_number            VARCHAR(20),
+    position                VARCHAR(20), --CHECK IF TRAINER,MANAGER ETC. HERE
+    hire_date               DATE,
+    location_id             INTEGER,
+    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+);
+
+INSERT INTO staff (first_name, last_name, email, phone_number, position, hire_date, location_id)
+VALUES 
+('David', 'Brown', 'david.b@fittrackpro.com', '555-4444', 'Trainer', '2024-11-10', 1),
+('Emma', 'Davis', 'emma.d@fittrackpro.com', '555-5555', 'Manager', '2024-11-15', 2),
+('Frank', 'Evans', 'frank.e@fittrackpro.com', '555-6666', 'Receptionist', '2024-12-10', 1),
+('Grace', 'Green', 'grace.g@fittrackpro.com', '555-7777', 'Trainer', '2024-12-20', 2),
+('Henry', 'Harris', 'henry.h@fittrackpro.com', '555-8888', 'Maintenance', '2025-01-05', 1),
+('Ivy', 'Irwin', 'ivy.i@fittrackpro.com', '555-9999', 'Trainer', '2025-01-01', 2),
+('Jack', 'Johnson', 'jack.j@fittrackpro.com', '555-0000', 'Manager', '2024-11-15', 1),
+('Karen', 'King', 'karen.k@fittrackpro.com', '555-1212', 'Trainer', '2024-12-01', 2);
+
+--Equipment-----------------------------------------------------------
+DROP TABLE IF EXISTS equipment;
+
+CREATE TABLE equipment(
+    equipment_id            VARCHAR(10) PRIMARY KEY,
+    name                    VARCHAR(20),
+    type                    VARCHAR(20), --CHECK IF CARDIO|STRENGTH
+    purchase_date           DATE,
+    last_maintenance_date   DATE,
+    next_maintenance_date   DATE,
+    location_id             INTEGER,
+    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+);
+
+INSERT INTO equipment (name, type, purchase_date, last_maintenance_date, next_maintenance_date, location_id)
+VALUES 
+('Treadmill 1', 'Cardio', '2024-11-01', '2024-11-15', '2025-02-15', 1),
+('Treadmill 2', 'Cardio', '2024-11-02', '2024-11-20', '2025-02-20', 1),
+('Treadmill 3', 'Cardio', '2024-11-03', '2024-11-25', '2025-02-25', 2),
+('Treadmill 4', 'Cardio', '2024-11-04', '2024-11-30', '2025-02-28', 2),
+('Bench Press 1', 'Strength', '2024-11-05', '2024-12-01', '2025-03-01', 1),
+('Bench Press 2', 'Strength', '2024-11-06', '2024-12-05', '2025-03-05', 2),
+('Elliptical 1', 'Cardio', '2024-11-07', '2024-12-10', '2025-03-10', 1),
+('Elliptical 2', 'Cardio', '2024-11-08', '2024-12-15', '2025-03-15', 2),
+('Squat Rack 1', 'Strength', '2024-11-09', '2024-12-20', '2025-03-20', 1),
+('Squat Rack 2', 'Strength', '2024-11-10', '2024-12-25', '2025-03-25', 2),
+('Rowing Machine 1', 'Cardio', '2024-11-11', '2024-12-30', '2025-03-30', 1),
+('Rowing Machine 2', 'Cardio', '2024-11-12', '2025-01-01', '2025-04-01', 2),
+('Leg Press 1', 'Strength', '2024-11-13', '2025-01-05', '2025-04-05', 1),
+('Leg Press 2', 'Strength', '2024-11-14', '2025-01-10', '2025-04-10', 2),
+('Stationary Bike 1', 'Cardio', '2024-11-15', '2025-01-15', '2025-04-15', 1),
+('Stationary Bike 2', 'Cardio', '2024-11-16', '2025-01-20', '2025-04-20', 2);
+
+--Classes---------------------------------------------------------------------
+DROP TABLE IF EXISTS classes;
+
+CREATE TABLE classes(
+    class_id                VARCHAR(10) PRIMARY KEY,
+    name                    VARCHAR(40),
+    description             VARCHAR(100), --CHECK IF CARDIO|STRENGTH
+    capacity                INTEGER,
+    duration                INTEGER,
+    location_id             INTEGER,
+    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+);
+
+INSERT INTO classes (name, description, capacity, duration, location_id)
+VALUES 
+('Yoga Basics', 'Introductory yoga class', 20, 60, 1),
+('HIIT Workout', 'High-intensity interval training', 15, 45, 2),
+('Spin Class', 'Indoor cycling workout', 20, 50, 1),
+('Pilates', 'Core-strengthening exercises', 15, 55, 2),
+('Zumba', 'Dance-based cardio workout', 25, 60, 1),
+('Strength Training', 'Weight-based resistance training', 12, 45, 2);
