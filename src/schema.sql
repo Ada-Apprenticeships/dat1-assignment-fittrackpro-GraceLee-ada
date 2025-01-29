@@ -163,3 +163,28 @@ VALUES
 ('Pilates', 'Core-strengthening exercises', 15, 55, 2),
 ('Zumba', 'Dance-based cardio workout', 25, 60, 1),
 ('Strength Training', 'Weight-based resistance training', 12, 45, 2);
+
+--Class Schedule--------------------------------------------------------
+DROP TABLE IF EXISTS class_schedule;
+
+CREATE TABLE class_schedule(
+    schedule_id             INTEGER PRIMARY KEY,
+    start_time              VARCHAR(19),
+    end_time                VARCHAR(19),
+    class_id                INTEGER,
+    staff_id                INTEGER,
+    FOREIGN KEY(class_id) REFERENCES classes(class_id),
+    FOREIGN KEY(staff_id) REFERENCES staff(staff_id)
+);
+
+INSERT INTO class_schedule (class_id, staff_id, start_time, end_time)
+VALUES 
+(1, 1, '2024-11-01 10:00:00', '2024-11-01 11:00:00'),
+(2, 2, '2024-11-15 18:00:00', '2024-11-15 18:45:00'),
+(3, 6, '2024-12-03 07:00:00', '2024-12-03 07:50:00'),
+(4, 4, '2024-12-20 09:00:00', '2024-12-20 09:55:00'),
+(5, 8, '2025-01-05 19:00:00', '2025-01-05 20:00:00'),
+(6, 1, '2025-01-20 12:00:00', '2025-01-20 12:45:00'),
+(3, 6, '2025-02-01 14:00:00', '2025-02-01 14:50:00'),
+(5, 8, '2025-02-01 19:00:00', '2025-02-01 20:00:00'),
+(5, 4, '2025-02-15 09:00:00', '2025-02-15 10:00:00');
