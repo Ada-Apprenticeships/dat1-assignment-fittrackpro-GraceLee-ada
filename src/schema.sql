@@ -188,3 +188,17 @@ VALUES
 (3, 6, '2025-02-01 14:00:00', '2025-02-01 14:50:00'),
 (5, 8, '2025-02-01 19:00:00', '2025-02-01 20:00:00'),
 (5, 4, '2025-02-15 09:00:00', '2025-02-15 10:00:00');
+
+--Memberships-----------------------------------------------------
+DROP TABLE IF EXISTS memberships;
+
+CREATE TABLE memberships(
+    membership_id           INTEGER PRIMARY KEY,
+    type                    VARCHAR(15),
+    start_date              DATE,
+    end_date                DATE,
+    class_id                INTEGER,
+    staff_id                INTEGER,
+    FOREIGN KEY(class_id) REFERENCES classes(class_id),
+    FOREIGN KEY(staff_id) REFERENCES staff(staff_id)
+);
