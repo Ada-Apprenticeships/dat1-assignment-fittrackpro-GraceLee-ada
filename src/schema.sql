@@ -2,9 +2,10 @@
 
 -- Initial SQLite setup
 .open fittrackpro.db
-.mode column
+.mode column 
 
 -- Enable foreign key support
+PRAGMA foreign_key = ON;
 
 -- Create your tables here
 -- Example:
