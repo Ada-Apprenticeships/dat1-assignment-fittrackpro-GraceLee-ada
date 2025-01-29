@@ -2,7 +2,7 @@
 
 -- Initial SQLite setup
 .open fittrackpro.db
-.mode column 
+.mode box
 
 -- Enable foreign key support
 PRAGMA foreign_key = ON;
@@ -32,3 +32,15 @@ PRAGMA foreign_key = ON;
 
 -- After creating the tables, you can import the sample data using:
 -- `.read data/sample_data.sql` in a sql file or `npm run import` in the terminal
+
+--Locations-------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS locations;
+
+CREATE TABLE locations (
+    location_id   VARCHAR(10) PRIMARY KEY,
+    name          VARCHAR(100),
+    address       VARCHAR(100),
+    phone_number  VARCHAR(20)
+);
+
+
