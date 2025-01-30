@@ -29,7 +29,7 @@ PRAGMA foreign_key = ON;
 DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
-    location_id   INTEGER PRIMARY KEY,
+    location_id   INTEGER PRIMARY KEY AUTOINCREMENT,
     name          VARCHAR(100),
     address       VARCHAR(100),
     phone_number  VARCHAR(20),
@@ -41,7 +41,7 @@ CREATE TABLE locations (
 DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
-    member_id               VARCHAR(10) PRIMARY KEY,
+    member_id               INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name              VARCHAR(100),
     last_name               VARCHAR(100),
     email                   VARCHAR(100),
@@ -56,7 +56,7 @@ CREATE TABLE members (
 DROP TABLE IF EXISTS staff;
 
 CREATE TABLE staff(
-    staff_id                VARCHAR(10) PRIMARY KEY,
+    staff_id                INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name              VARCHAR(100),
     last_name               VARCHAR(100),
     email                   VARCHAR(100),
@@ -72,7 +72,7 @@ CREATE TABLE staff(
 DROP TABLE IF EXISTS equipment;
 
 CREATE TABLE equipment(
-    equipment_id            VARCHAR(10) PRIMARY KEY,
+    equipment_id            INTEGER PRIMARY KEY AUTOINCREMENT,
     name                    VARCHAR(20),
     type                    VARCHAR(20)
     CHECK(type IN ('Cardio', 'Strength')),
@@ -87,7 +87,7 @@ CREATE TABLE equipment(
 DROP TABLE IF EXISTS classes;
 
 CREATE TABLE classes(
-    class_id                VARCHAR(10) PRIMARY KEY,
+    class_id                INTEGER PRIMARY KEY AUTOINCREMENT,
     name                    VARCHAR(40),
     description             VARCHAR(100),
     capacity                INTEGER,
@@ -100,7 +100,7 @@ CREATE TABLE classes(
 DROP TABLE IF EXISTS class_schedule;
 
 CREATE TABLE class_schedule(
-    schedule_id             INTEGER PRIMARY KEY,
+    schedule_id             INTEGER PRIMARY KEY AUTOINCREMENT,
     start_time              VARCHAR(19),
     end_time                VARCHAR(19),
     class_id                INTEGER,
@@ -113,7 +113,7 @@ CREATE TABLE class_schedule(
 DROP TABLE IF EXISTS memberships;
 
 CREATE TABLE memberships(
-    membership_id           INTEGER PRIMARY KEY,
+    membership_id           INTEGER PRIMARY KEY AUTOINCREMENT,
     type                    VARCHAR(15),
     start_date              DATE,
     end_date                DATE,
@@ -127,7 +127,7 @@ CREATE TABLE memberships(
 DROP TABLE IF EXISTS attendance;
 
 CREATE TABLE attendance(
-    attendance_id           INTEGER PRIMARY KEY,
+    attendance_id           INTEGER PRIMARY KEY AUTOINCREMENT,
     check_in_time           VARCHAR(19),
     check_out_time          VARCHAR(19),
     member_id               INTEGER,
@@ -140,7 +140,7 @@ CREATE TABLE attendance(
 DROP TABLE IF EXISTS class_attendance;
 
 CREATE TABLE class_attendance(
-    class_attendance_id     INTEGER PRIMARY KEY,
+    class_attendance_id     INTEGER PRIMARY KEY AUTOINCREMENT,
     attendance_status       VARCHAR(10)
     CHECK(attendance_status IN ('Registered','Attended','Unattended')),
     member_id               INTEGER,
@@ -153,7 +153,7 @@ CREATE TABLE class_attendance(
 DROP TABLE IF EXISTS payments;
 
 CREATE TABLE payments(
-    payment_id              INTEGER PRIMARY KEY,
+    payment_id              INTEGER PRIMARY KEY AUTOINCREMENT,
     amount                  DECIMAL(10,2),
     payment_date            DATE,
     payment_method          VARCHAR(20)
@@ -168,7 +168,7 @@ CREATE TABLE payments(
 DROP TABLE IF EXISTS personal_training_sessions;
 
 CREATE TABLE personal_training_sessions(
-    session_id              INTEGER PRIMARY KEY,
+    session_id              INTEGER PRIMARY KEY AUTOINCREMENT,
     session_date            DATE,
     start_time              VARCHAR(8),
     end_time                VARCHAR(8),
@@ -183,7 +183,7 @@ CREATE TABLE personal_training_sessions(
 DROP TABLE IF EXISTS member_health_metrics;
 
 CREATE TABLE member_health_metrics(
-    metric_id               INTEGER PRIMARY KEY,
+    metric_id               INTEGER PRIMARY KEY AUTOINCREMENT,
     measurement_date        DATE,
     weight                  DECIMAL(10,1),
     body_fat_percentage     DECIMAL(10,1),
@@ -197,8 +197,8 @@ CREATE TABLE member_health_metrics(
 DROP TABLE IF EXISTS equipment_maintenance_log;
 
 CREATE TABLE equipment_maintenance_log(
-    log_id                    INTEGER PRIMARY KEY,
-    maintenance_date              DATE,
+    log_id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+    maintenance_date          DATE,
     description               VARCHAR(100),
     staff_id                  INTEGER,
     equipment_id              INTEGER,
