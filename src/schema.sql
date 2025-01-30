@@ -61,7 +61,8 @@ CREATE TABLE staff(
     last_name               VARCHAR(100),
     email                   VARCHAR(100),
     phone_number            VARCHAR(20),
-    position                VARCHAR(20), --CHECK IF TRAINER,MANAGER ETC. HERE
+    position                VARCHAR(20) --CHECK IF TRAINER,MANAGER ETC. HERE
+    CHECK(position IN ('Trainer', 'Manager', 'Receptionist', 'Maintenance')),
     hire_date               DATE,
     location_id             INTEGER,
     FOREIGN KEY(location_id) REFERENCES locations(location_id)
