@@ -37,9 +37,9 @@ FROM members;
 
 -- 4. Find member with the most class registrations
 -- TODO: Write a query to find the member with the most class registrations
-SELECT class_attendance_id
-FROM class_attendance
-WHERE attendance_status = 'Registered';
+-- SELECT m.member_id, m.first_name, m.last_name, COUNT(c.member_id) as registration_Count
+-- FROM class_attendance c
+-- INNER JOIN members m ON (c.attendance_status = 'Registered') AND (c.member_id = m.member_id);
 
 -- 5. Find member with the least class registrations
 -- TODO: Write a query to find the member with the least class registrations
