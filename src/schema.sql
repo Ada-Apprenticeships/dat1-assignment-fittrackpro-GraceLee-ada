@@ -61,7 +61,7 @@ CREATE TABLE staff(
     last_name               VARCHAR(100),
     email                   VARCHAR(100),
     phone_number            VARCHAR(20),
-    position                VARCHAR(20) --CHECK IF TRAINER,MANAGER ETC. HERE
+    position                VARCHAR(20)
     CHECK(position IN ('Trainer', 'Manager', 'Receptionist', 'Maintenance')),
     hire_date               DATE,
     location_id             INTEGER,
@@ -74,7 +74,8 @@ DROP TABLE IF EXISTS equipment;
 CREATE TABLE equipment(
     equipment_id            VARCHAR(10) PRIMARY KEY,
     name                    VARCHAR(20),
-    type                    VARCHAR(20), --CHECK IF CARDIO|STRENGTH
+    type                    VARCHAR(20)
+    CHECK(type IN ('Cardio', 'Strength')),
     purchase_date           DATE,
     last_maintenance_date   DATE,
     next_maintenance_date   DATE,
