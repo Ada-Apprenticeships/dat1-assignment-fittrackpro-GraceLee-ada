@@ -199,3 +199,5 @@ CREATE TABLE equipment_maintenance_log(
     FOREIGN KEY(staff_id)     REFERENCES staff(staff_id),
     FOREIGN KEY(equipment_id) REFERENCES equipment(equipment_id)
 );
+
+.read ../scripts/sample_data.sql
