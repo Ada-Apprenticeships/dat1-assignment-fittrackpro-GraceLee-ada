@@ -306,3 +306,89 @@ VALUES
 (12, 15.00, '2025-01-16 10:30:00', 'Credit Card', 'Day pass'),
 (13, 15.00, '2025-01-17 14:00:00', 'Cash', 'Day pass'),
 (14, 15.00, '2025-01-18 11:15:00', 'Credit Card', 'Day pass');
+
+--Personal Training Sessions---------------------------------------------------------
+DROP TABLE IF EXISTS personal_training_sessions;
+
+CREATE TABLE personal_training_sessions(
+    session_id              INTEGER PRIMARY KEY,
+    session_date            DATE,
+    start_time              VARCHAR(8),
+    end_time                VARCHAR(8),
+    notes                   VARCHAR(40),
+    member_id               INTEGER,
+    staff_id                INTEGER,
+    FOREIGN KEY(member_id) REFERENCES members(member_id),
+    FOREIGN KEY(staff_id) REFERENCES staff(staff_id)
+);
+
+INSERT INTO personal_training_sessions (member_id, staff_id, session_date, start_time, end_time, notes)
+VALUES 
+(1, 1, '2024-11-05', '10:00:00', '11:00:00', 'Focus on upper body strength'),
+(2, 2, '2024-11-20', '15:00:00', '16:00:00', 'Cardio and endurance training'),
+(3, 6, '2024-12-07', '09:00:00', '10:00:00', 'Core workout and flexibility'),
+(5, 8, '2024-12-19', '11:00:00', '12:00:00', 'Full body workout'),
+(7, 6, '2025-01-11', '13:00:00', '14:00:00', 'Yoga and stretching'),
+(9, 3, '2025-01-15', '08:00:00', '09:00:00', 'Morning cardio session'),
+(11, 7, '2025-01-20', '12:00:00', '13:00:00', 'Midday flexibility workout'),
+(13, 1, '2025-01-25', '15:00:00', '16:00:00', 'Afternoon endurance training'),
+(1, 1, '2025-02-05', '10:00:00', '11:00:00', 'Focus on upper body strength'),
+(3, 6, '2025-02-07', '09:00:00', '10:00:00', 'Core workout and flexibility'),
+(5, 8, '2025-02-09', '11:00:00', '12:00:00', 'Full body workout'),
+(7, 6, '2025-02-11', '13:00:00', '14:00:00', 'Yoga and stretching'),
+(9, 3, '2025-02-15', '08:00:00', '09:00:00', 'Morning cardio session'),
+(11, 7, '2025-02-18', '12:00:00', '13:00:00', 'Midday flexibility workout'),
+(13, 1, '2025-02-20', '15:00:00', '16:00:00', 'Afternoon endurance training');
+
+--Member health metrics--------------------------------------------------------
+DROP TABLE IF EXISTS member_health_metrics;
+
+CREATE TABLE member_health_metrics(
+    metric_id               INTEGER PRIMARY KEY,
+    measurement_date        DATE,
+    weight                  DECIMAL(10,1),
+    body_fat_percentage     DECIMAL(10,1),
+    muscle_mass             DECIMAL(10,1),
+    bmi                     DECIMAL(10,1),
+    member_id               INTEGER,
+    FOREIGN KEY(member_id) REFERENCES members(member_id)
+);
+
+INSERT INTO member_health_metrics (member_id, measurement_date, weight, body_fat_percentage, muscle_mass, bmi)
+VALUES 
+(1, '2024-11-01', 70.5, 22.0, 35.0, 23.5),
+(2, '2024-11-15', 80.0, 18.0, 40.0, 24.0),
+(3, '2024-12-01', 65.0, 24.0, 32.0, 22.5),
+(4, '2024-12-15', 75.5, 20.0, 38.0, 23.8),
+(5, '2025-01-01', 68.0, 23.0, 34.0, 22.8),
+(6, '2025-01-15', 82.5, 17.0, 42.0, 24.5),
+(7, '2025-01-20', 62.0, 25.0, 30.0, 21.5),
+(8, '2025-01-25', 78.0, 19.0, 39.0, 24.2),
+(9, '2025-01-28', 72.5, 21.0, 36.0, 23.2),
+(10, '2025-01-28', 85.0, 16.0, 43.0, 25.0);
+
+--Equipment Maintenance Log----------------------------------------------------------
+DROP TABLE IF EXISTS equipment_maintenance_log;
+
+CREATE TABLE equipment_maintenance_log(
+    log_id                    INTEGER PRIMARY KEY,
+    maintenance_date              DATE,
+    description               VARCHAR(100),
+    staff_id                  INTEGER,
+    equipment_id              INTEGER,
+    FOREIGN KEY(staff_id)     REFERENCES staff(staff_id),
+    FOREIGN KEY(equipment_id) REFERENCES equipment(equipment_id)
+);
+
+INSERT INTO equipment_maintenance_log (equipment_id, maintenance_date, description, staff_id)
+VALUES 
+(1, '2024-11-15', 'Routine maintenance and belt adjustment', 1),
+(2, '2024-11-20', 'Lubrication and safety check', 2),
+(3, '2024-11-25', 'Calibration and software update', 3),
+(4, '2024-11-30', 'Belt replacement and console check', 4),
+(5, '2024-12-01', 'Weight stack inspection and cleaning', 5),
+(6, '2024-12-05', 'Cable tension adjustment', 6),
+(7, '2025-01-01', 'Pedal replacement and chain lubrication', 7),
+(8, '2025-01-05', 'Display repair and sensor calibration', 8),
+(9, '2025-01-20', 'Frame inspection and tightening', 1),
+(10, '2025-01-25', 'Safety features check and padding replacement', 2);
