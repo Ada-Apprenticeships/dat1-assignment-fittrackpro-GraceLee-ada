@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS classes;
 CREATE TABLE classes(
     class_id                VARCHAR(10) PRIMARY KEY,
     name                    VARCHAR(40),
-    description             VARCHAR(100), --CHECK IF CARDIO|STRENGTH
+    description             VARCHAR(100),
     capacity                INTEGER,
     duration                INTEGER,
     location_id             INTEGER,
@@ -117,7 +117,8 @@ CREATE TABLE memberships(
     type                    VARCHAR(15),
     start_date              DATE,
     end_date                DATE,
-    status                  VARCHAR(10), --CHECK IF ACTIVE/INACTIVE 
+    status                  VARCHAR(10)
+    CHECK(status IN ('Active','Inactive')),
     member_id               INTEGER,
     FOREIGN KEY(member_id) REFERENCES members(member_id)
 );
@@ -140,7 +141,8 @@ DROP TABLE IF EXISTS class_attendance;
 
 CREATE TABLE class_attendance(
     class_attendance_id     INTEGER PRIMARY KEY,
-    attendance_status       VARCHAR(10), --CHECK IF REGISTERED|ATTENDED|UNATTENDED
+    attendance_status       VARCHAR(10)
+    CHECK(attendance_status IN ('Registered','Attended','Unattended')),
     member_id               INTEGER,
     schedule_id             INTEGER,
     FOREIGN KEY(member_id) REFERENCES members(member_id)
@@ -154,8 +156,10 @@ CREATE TABLE payments(
     payment_id              INTEGER PRIMARY KEY,
     amount                  DECIMAL(10,2),
     payment_date            DATE,
-    payment_method          VARCHAR(20), --CHECK IF CREDIT CARD ETC.
-    payment_type            VARCHAR(30), --CHECK IF MONTHLY MEMBERSHIP FEE ETC.
+    payment_method          VARCHAR(20)
+    CHECK(payment_method IN ('Credit Card', 'Bank Transfer', 'PayPal', 'Cash')),
+    payment_type            VARCHAR(30)
+    CHECK(payment_type IN ('Monthly membership fee', 'Day pass')),
     member_id               INTEGER,
     FOREIGN KEY(member_id) REFERENCES members(member_id)
 );
