@@ -15,9 +15,14 @@ LEFT OUTER JOIN class_schedule cs, staff s ON s.staff_id = cs.staff_id AND cs.cl
 
 -- 2. Find available classes for a specific date
 -- TODO: Write a query to find available classes for a specific date
+SELECT c.class_id, c.name, cs.start_time, cs.end_time, c.capacity AS available_spots
+FROM classes c 
+INNER JOIN class_schedule cs ON cs.class_id = c.class_id AND date(cs.start_time) = '2025-02-01';
+
 
 -- 3. Register a member for a class
 -- TODO: Write a query to register a member for a class
+
 
 -- 4. Cancel a class registration
 -- TODO: Write a query to cancel a class registration
