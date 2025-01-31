@@ -15,9 +15,11 @@ WHERE strftime('%j', next_maintenance_date) < strftime('%j', date('now', '+30 da
 
 -- 2. Count equipment types in stock
 -- TODO: Write a query to count equipment types in stock
-SELECT type as equipment_type, COUNT(type) as count
+SELECT type AS equipment_type, COUNT(type) as count
 FROM equipment
-GROUP BY type
+GROUP BY type;
 
 -- 3. Calculate average age of equipment by type (in days)
 -- TODO: Write a query to calculate average age of equipment by type (in days)
+-- SELECT type AS equipment_type, AVG()
+-- FROM equipment
