@@ -22,13 +22,24 @@ INNER JOIN class_schedule cs ON cs.class_id = c.class_id AND date(cs.start_time)
 
 -- 3. Register a member for a class
 -- TODO: Write a query to register a member for a class
-
+-- INSERT INTO class_attendance(attendance_status, member_id, schedule_id)
+-- VALUES('Registered', 11, 7);
 
 -- 4. Cancel a class registration
 -- TODO: Write a query to cancel a class registration
+-- DELETE FROM class_attendance
+-- WHERE member_id = 2 AND schedule_id = 7;
 
 -- 5. List top 5 most popular classes
 -- TODO: Write a query to list top 5 most popular classes
+SELECT c.class_id, c.name AS class_name, ca.class_attendance_id, COUNT(ca.schedule_id) AS registration_count
+FROM class_attendance ca
+INNER JOIN class_schedule cs ON cs.schedule_id = ca.schedule_id
+INNER JOIN classes c ON c.class_id = cs.class_id
+WHERE ca.attendance_status = 'Registered'
+GROUP BY ca.schedule_id
+ORDER BY COUNT(*) DESC LIMIT 3;
+
 
 -- 6. Calculate average number of classes per member
 -- TODO: Write a query to calculate average number of classes per member
