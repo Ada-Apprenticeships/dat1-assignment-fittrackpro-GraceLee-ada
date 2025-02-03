@@ -11,7 +11,7 @@ PRAGMA foreign_keys = ON;
 -- TODO: Write a query to find equipment due for maintenance
 SELECT equipment_id, name, next_maintenance_date
 FROM equipment
-WHERE strftime('%j', next_maintenance_date) < strftime('%j', date('now', '+30 day')) = 1;
+WHERE JULIANDAY(next_maintenance_date) < JULIANDAY(date('now', '+30 day')) = 1;
 
 -- 2. Count equipment types in stock
 -- TODO: Write a query to count equipment types in stock

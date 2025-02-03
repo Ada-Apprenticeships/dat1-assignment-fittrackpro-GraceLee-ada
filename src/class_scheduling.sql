@@ -43,3 +43,7 @@ ORDER BY COUNT(*) DESC LIMIT 3;
 
 -- 6. Calculate average number of classes per member
 -- TODO: Write a query to calculate average number of classes per member
+-- SELECT member_id, COUNT(member_id)
+-- FROM class_attendance
+-- GROUP BY member_id
+-- ORDER BY COUNT(member_id) DESC;
