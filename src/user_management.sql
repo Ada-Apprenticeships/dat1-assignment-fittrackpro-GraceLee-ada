@@ -32,17 +32,28 @@ WHERE member_id = 5;
 
 -- 3. Count total number of members
 -- TODO: Write a query to count the total number of members
-SELECT COUNT(*) as memberCount
+SELECT COUNT(*) AS memberCount
 FROM members;
 
 -- 4. Find member with the most class registrations
 -- TODO: Write a query to find the member with the most class registrations
--- SELECT m.member_id, m.first_name, m.last_name, COUNT(c.member_id) as registration_Count
--- FROM class_attendance c
--- INNER JOIN members m ON (c.attendance_status = 'Registered') AND (c.member_id = m.member_id);
+SELECT m.member_id, m.first_name, m.last_name, COUNT(ca.member_id) AS registration_count
+FROM members m 
+LEFT JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
+GROUP BY ca.member_id
+ORDER BY COUNT(ca.member_id) DESC LIMIT 1;
 
 -- 5. Find member with the least class registrations
 -- TODO: Write a query to find the member with the least class registrations
+SELECT m.member_id, m.first_name, m.last_name, COUNT(ca.member_id) AS registration_count
+FROM members m 
+LEFT JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
+GROUP BY ca.member_id
+ORDER BY COUNT(ca.member_id) ASC LIMIT 1;
 
 -- 6. Calculate the percentage of members who have attended at least one class
 -- TODO: Write a query to calculate the percentage of members who have attended at least one class
+-- SELECT  (SELECT COUNT(member_id)
+--         FROM class_attendance
+--         WHERE attendance_status = 'Attended')/(SELECT COUNT(*) FROM members)*100
+        
