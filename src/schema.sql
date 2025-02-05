@@ -154,9 +154,10 @@ DROP TABLE IF EXISTS payments;
 
 CREATE TABLE payments(
     payment_id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    amount                  DECIMAL(10,2),
+    amount                  REAL
+    CHECK(amount=ROUND(amount,2)),
     payment_date            DATE,
-    payment_method          VARCHAR(20)
+    payment_method          VARCHAR(20) 
     CHECK(payment_method IN ('Credit Card', 'Bank Transfer', 'PayPal', 'Cash')),
     payment_type            VARCHAR(30)
     CHECK(payment_type IN ('Monthly membership fee', 'Day pass')),
@@ -185,10 +186,14 @@ DROP TABLE IF EXISTS member_health_metrics;
 CREATE TABLE member_health_metrics(
     metric_id               INTEGER PRIMARY KEY AUTOINCREMENT,
     measurement_date        DATE,
-    weight                  DECIMAL(10,1),
-    body_fat_percentage     DECIMAL(10,1),
-    muscle_mass             DECIMAL(10,1),
-    bmi                     DECIMAL(10,1),
+    weight                  REAL
+    CHECK(weight=ROUND(weight,1)),
+    body_fat_percentage     REAL
+    CHECK(body_fat_percentage=ROUND(body_fat_percentage,1)),
+    muscle_mass             REAL
+    CHECK(muscle_mass=ROUND(muscle_mass,1)),
+    bmi                     REAL
+    CHECK(bmi=ROUND(bmi,1)),
     member_id               INTEGER,
     FOREIGN KEY(member_id) REFERENCES members(member_id)
 );
