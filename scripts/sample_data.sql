@@ -130,6 +130,7 @@ VALUES
 (6, 1, 'Registered'),
 (7, 2, 'Registered'),
 (8, 3, 'Registered');
+-- (3, 2, 'Registered');
 
 -- Sample data for payments
 INSERT INTO payments (member_id, amount, payment_date, payment_method, payment_type)
