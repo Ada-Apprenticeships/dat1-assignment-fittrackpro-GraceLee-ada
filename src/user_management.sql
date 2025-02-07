@@ -37,21 +37,26 @@ FROM members;
 
 -- 4. Find member with the most class registrations
 -- TODO: Write a query to find the member with the most class registrations
-SELECT m.member_id, m.first_name, m.last_name, MAX(registration_count) AS registration_count
-FROM (SELECT m.member_id, COUNT(ca.member_id) AS registration_count
-    FROM members m 
-    INNER JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
-    GROUP BY ca.member_id) countList
-LEFT JOIN members m ON m.member_id = countList.member_id;
+WITH countList AS (SELECT m.member_id, COUNT(ca.member_id) AS registration_count
+                   FROM members m 
+                   INNER JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
+                   GROUP BY ca.member_id)
+SELECT m.member_id, m.first_name, m.last_name, cl.registration_count
+FROM members m 
+INNER JOIN countList cl ON m.member_id = cl.member_id
+WHERE cl.registration_count = (SELECT MAX(registration_count) FROM countList);
+
 
 -- 5. Find member with the least class registrations
 -- TODO: Write a query to find the member with the least class registrations
-SELECT m.member_id, m.first_name, m.last_name, MIN(registration_count) AS registration_count
-FROM (SELECT m.member_id, COUNT(ca.member_id) AS registration_count
-    FROM members m 
-    INNER JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
-    GROUP BY ca.member_id) countList
-INNER JOIN members m ON m.member_id = countList.member_id;
+WITH countList AS (SELECT m.member_id, COUNT(ca.member_id) AS registration_count
+                   FROM members m 
+                   INNER JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
+                   GROUP BY ca.member_id)
+SELECT m.member_id, m.first_name, m.last_name, cl.registration_count
+FROM members m 
+INNER JOIN countList cl ON m.member_id = cl.member_id
+WHERE cl.registration_count = (SELECT MIN(registration_count) FROM countList);
 
 -- 6. Calculate the percentage of members who have attended at least one class
 -- TODO: Write a query to calculate the percentage of members who have attended at least one class
