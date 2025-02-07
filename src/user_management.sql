@@ -60,7 +60,9 @@ WHERE cl.registration_count = (SELECT MIN(registration_count) FROM countList);
 
 -- 6. Calculate the percentage of members who have attended at least one class
 -- TODO: Write a query to calculate the percentage of members who have attended at least one class
--- SELECT  (SELECT COUNT(member_id)
---         FROM class_attendance
---         WHERE attendance_status = 'Attended')/(SELECT COUNT(*) FROM members)*100
-        
+WITH countList AS (SELECT COUNT(member_id) AS count
+        FROM class_attendance
+        WHERE attendance_status = 'Attended')
+SELECT 1.0*cl.count/COUNT(*)*100 AS percentage
+FROM members m
+INNER JOIN countList cl;
