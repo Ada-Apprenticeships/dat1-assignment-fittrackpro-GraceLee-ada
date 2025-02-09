@@ -20,10 +20,12 @@ WHERE member_id = 5;
 
 -- 3. Find the busiest day of the week based on gym visits
 -- TODO: Write a query to find the busiest day of the week based on gym visits
-SELECT strftime('%u',check_in_time) AS day_of_week, COUNT(strftime('%u',check_in_time)) AS visit_count
-FROM attendance
-GROUP BY strftime('%u',check_in_time)
-ORDER BY COUNT(strftime('%u',check_in_time)) DESC LIMIT 1;
+WITH dayList AS (SELECT strftime('%u',check_in_time) AS day_of_week, COUNT(strftime('%u',check_in_time)) AS visit_count
+                 FROM attendance
+                 GROUP BY strftime('%u',check_in_time))
+SELECT day_of_week, visit_count
+FROM dayList
+WHERE visit_count = (SELECT MAX(visit_count) FROM dayList);
 
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
