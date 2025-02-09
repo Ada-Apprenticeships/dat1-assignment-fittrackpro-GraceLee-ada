@@ -29,3 +29,10 @@ WHERE visit_count = (SELECT MAX(visit_count) FROM dayList);
 
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
+SELECT location_name, AVG(day_count) AS avg_daily_attendance
+FROM (SELECT l.name AS location_name, date(a.check_in_time) AS day, COUNT(date(a.check_in_time)) AS day_count
+      FROM attendance a
+      INNER JOIN locations l ON l.location_id = a.location_id
+      GROUP BY date(a.check_in_time)
+      ORDER BY location_name)
+GROUP BY location_name;

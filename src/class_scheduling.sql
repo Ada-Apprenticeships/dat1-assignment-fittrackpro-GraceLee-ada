@@ -30,8 +30,8 @@ INNER JOIN class_schedule cs ON cs.class_id = c.class_id AND date(cs.start_time)
 -- DELETE FROM class_attendance
 -- WHERE member_id = 2 AND schedule_id = 7;
 
--- 5. List top 5 most popular classes
--- TODO: Write a query to list top 5 most popular classes
+-- 5. List top 3 most popular classes
+-- TODO: Write a query to list top 3 most popular classes
 SELECT c.class_id, c.name AS class_name, ca.class_attendance_id, COUNT(ca.schedule_id) AS registration_count
 FROM class_attendance ca
 INNER JOIN class_schedule cs ON cs.schedule_id = ca.schedule_id
