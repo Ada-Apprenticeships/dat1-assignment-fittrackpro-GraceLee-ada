@@ -14,13 +14,10 @@ PRAGMA foreign_keys = ON;
 
 -- 2. Calculate total revenue from membership fees for each month of the last year
 -- TODO: Write a query to calculate total revenue from membership fees for each month of the current year
--- SELECT (SELECT strftime('%m') 
---         BETWEEN date('%Y-01-01', 'now', '-1 year') AND date('now')) AS month, SUM(amount) AS total_revenue
+-- SELECT strftime('%m', payment_date) AS months, SUM(amount) AS total_revenue
 -- FROM payments
--- GROUP BY month;
--- SELECT payment_date
--- FROM payments
--- WHERE (SELECT payment_date BETWEEN date(strftime('%Y-01-01', 'now')) AND date('now') FROM payments) = 1;
+-- GROUP BY months
+-- ORDER BY months ASC;
 
 -- SELECT payment_date BETWEEN date(strftime('%Y-01-01', 'now')) AND date('now') FROM payments;
 -- 3. Find all day pass purchases

@@ -217,45 +217,45 @@ Use this as a checklist to keep track of your progress.
 1. [x] 1.1 Retrieve all members
 2. [x] 1.2 Update a member's contact information
 3. [x] 1.3 Count total number of members
-4. [ ] 1.4 Find member with the most class registrations
-5. [ ] 1.5 Find member with the least class registrations
-6. [ ] 1.6 Calculate the percentage of members who have attended at least one class
+4. [x] 1.4 Find member with the most class registrations
+5. [x] 1.5 Find member with the least class registrations
+6. [x] 1.6 Calculate the percentage of members who have attended at least one class
 
 #### 2. Payment Management (payment_management.sql)
-1. [ ] 2.1 Record a payment for a membership
+1. [x] 2.1 Record a payment for a membership
 2. [ ] 2.2 Calculate total revenue from membership fees for each month of the last year
-3. [ ] 2.3 Find all day pass purchases
+3. [x] 2.3 Find all day pass purchases
 
 #### 3. Equipment Management (equipment_management.sql)
-1. [ ] 3.1 Find equipment due for maintenance in the next 30 days
-2. [ ] 3.2 Count equipment types in stock
-3. [ ] 3.3 Calculate average age of equipment by type (in days)
+1. [x] 3.1 Find equipment due for maintenance in the next 30 days
+2. [x] 3.2 Count equipment types in stock
+3. [x] 3.3 Calculate average age of equipment by type (in days)
 
 #### 4. Class Scheduling (class_scheduling.sql)
-1. [ ] 4.1 List all classes with their instructors
-2. [ ] 4.2 Find available classes for a specific date
-3. [ ] 4.3 Register a member for a class
-4. [ ] 4.4 Cancel a class registration
-5. [ ] 4.5 List top 3 most popular classes
-6. [ ] 4.6 Calculate average number of classes per member
+1. [x] 4.1 List all classes with their instructors
+2. [x] 4.2 Find available classes for a specific date
+3. [x] 4.3 Register a member for a class
+4. [x] 4.4 Cancel a class registration
+5. [x] 4.5 List top 3 most popular classes
+6. [x] 4.6 Calculate average number of classes per member
 
 #### 5. Membership Management (membership_management.sql)
-1. [ ] 5.1 List all active memberships
-2. [ ] 5.2 Calculate the average duration of gym visits for each membership type
-3. [ ] 5.3 Identify members with expiring memberships this year
+1. [x] 5.1 List all active memberships
+2. [x] 5.2 Calculate the average duration of gym visits for each membership type
+3. [x] 5.3 Identify members with expiring memberships this year
 
 #### 6. Attendance Tracking (attendance_tracking.sql)
-1. [ ] 6.1 Record a member's gym visit
-2. [ ] 6.2 Retrieve a member's attendance history
+1. [x] 6.1 Record a member's gym visit
+2. [x] 6.2 Retrieve a member's attendance history
 3. [ ] 6.3 Find the busiest day of the week based on gym visits
 4. [ ] 6.4 Calculate the average daily attendance for each location
 
 #### 7. Staff Management (staff_management.sql)
-1. [ ] 7.1 List all staff members by role
-2. [ ] 7.2 Find trainers with one or more personal training session in the next 30 days
+1. [x] 7.1 List all staff members by role
+2. [x] 7.2 Find trainers with one or more personal training session in the next 30 days
 
 #### 8. Personal Training (personal_training.sql)
-1. [ ] 8.1 List all personal training sessions for a specific trainer
+1. [x] 8.1 List all personal training sessions for a specific trainer
 
 ## Task Details
 
@@ -322,7 +322,7 @@ member_id | first_name | last_name | registration_count
 
 ------
 ------
-#### 1.6. Calculate the percentage of members who have attended at least one class
+#### 1.6. Calculate the percentage of members who have attended at least one class 
 
 | Task                                                                     | Details                                     |
 | ------------------------------------------------------------------------ | ------------------------------------------- |

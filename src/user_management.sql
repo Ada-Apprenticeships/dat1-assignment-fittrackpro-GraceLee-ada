@@ -15,19 +15,9 @@ FROM members;
 -- 2. Update a member's contact information
 -- TODO: Write a query to update a member's contact information
 
---Displays phone number and email before
-SELECT phone_number, email
-FROM members
-WHERE member_id = 5;
-
 --Update query
 UPDATE members
 SET phone_number = '123-123', email = 'emily.jones.updated@email.com' --When testing this, change to a different phone number to see difference
-WHERE member_id = 5;
-
---Displays phone number after
-SELECT phone_number, email
-FROM members
 WHERE member_id = 5;
 
 -- 3. Count total number of members
