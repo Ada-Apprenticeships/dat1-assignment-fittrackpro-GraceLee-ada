@@ -223,7 +223,7 @@ Use this as a checklist to keep track of your progress.
 
 #### 2. Payment Management (payment_management.sql)
 1. [x] 2.1 Record a payment for a membership
-2. [ ] 2.2 Calculate total revenue from membership fees for each month of the last year
+2. [x] 2.2 Calculate total revenue from membership fees for each month of the last year
 3. [x] 2.3 Find all day pass purchases
 
 #### 3. Equipment Management (equipment_management.sql)
