@@ -31,10 +31,13 @@ DROP TABLE IF EXISTS locations;
 CREATE TABLE locations (
     location_id   INTEGER PRIMARY KEY AUTOINCREMENT,
     name          VARCHAR(100),
-    address       VARCHAR(100),
-    phone_number  VARCHAR(20),
-    email         VARCHAR(100),
-    opening_hours VARCHAR(11)
+    address       VARCHAR(100) --includes at least a city/town after a comma
+    CHECK(address LIKE '%,%'), 
+    phone_number  VARCHAR(20), --VARCHAR as different countries have different formats
+    email         VARCHAR(100)
+    CHECK(email LIKE '%@%'),
+    opening_hours VARCHAR(11) --maximum format is 00:00-00:00 therefore 11 chars (can be single digit)
+    CHECK(opening_hours LIKE '%:%-%:%') 
 );
 
 --Members-----------------------------------------
@@ -44,8 +47,9 @@ CREATE TABLE members (
     member_id               INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name              VARCHAR(100),
     last_name               VARCHAR(100),
-    email                   VARCHAR(100),
-    phone_number            VARCHAR(20),
+    email                   VARCHAR(100)
+    CHECK(email LIKE '%@%'),
+    phone_number            VARCHAR(20), --VARCHAR as different countries have different formats
     date_of_birth           DATE,
     join_date               DATE,
     emergency_contact_name  VARCHAR(100),
