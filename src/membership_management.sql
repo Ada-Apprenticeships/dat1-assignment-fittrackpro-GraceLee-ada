@@ -26,4 +26,5 @@ GROUP BY type;
 -- TODO: Write a query to identify members with expiring memberships this year
 SELECT m.member_id, m.first_name, m.last_name, m.email, ms.end_date
 FROM members m 
-INNER JOIN memberships ms ON m.member_id = ms.member_id AND JULIANDAY(ms.end_date) < JULIANDAY(date('now', '+365 day'));
+INNER JOIN memberships ms ON m.member_id = ms.member_id AND JULIANDAY(ms.end_date) < JULIANDAY(date('now', '+1 year'))
+WHERE ms.status = 'Active';
