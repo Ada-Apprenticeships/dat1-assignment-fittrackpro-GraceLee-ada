@@ -33,8 +33,15 @@ GROUP BY c.class_id;
 
 -- 3. Register a member for a class
 -- TODO: Write a query to register a member for a class
-INSERT INTO class_attendance(attendance_status, member_id, schedule_id)
-VALUES('Registered', 11, 7);
+INSERT INTO class_attendance (schedule_id, member_id, attendance_status)
+VALUES (
+(
+    SELECT schedule_id
+    FROM class_schedule
+    WHERE class_id = 3
+    AND start_time LIKE '2025-02-01%'
+),
+11,'Registered');
 
 -- 4. Cancel a class registration
 -- TODO: Write a query to cancel a class registration
