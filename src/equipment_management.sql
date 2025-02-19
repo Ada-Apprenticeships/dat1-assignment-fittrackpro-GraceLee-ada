@@ -9,19 +9,25 @@ PRAGMA foreign_keys = ON;
 
 -- 1. Find equipment due for maintenance
 -- TODO: Write a query to find equipment due for maintenance
-SELECT equipment_id, name, next_maintenance_date
+SELECT equipment_id, 
+       name, 
+       next_maintenance_date
 FROM equipment
-WHERE JULIANDAY(next_maintenance_date) BETWEEN JULIANDAY(DATE('now')) AND JULIANDAY(DATE('now', '+30 day'));
+WHERE JULIANDAY(next_maintenance_date) BETWEEN JULIANDAY(DATE('now')) 
+                                       AND JULIANDAY(DATE('now', '+30 day'));
 
 -- 2. Count equipment types in stock
 -- TODO: Write a query to count equipment types in stock
-SELECT type AS equipment_type, COUNT(type) as count
+SELECT type AS equipment_type, 
+       COUNT(type) as count
 FROM equipment
 GROUP BY type;
 
 -- 3. Calculate average age of equipment by type (in days)
 -- TODO: Write a query to calculate average age of equipment by type (in days)
-SELECT type AS equipment_type, AVG(average) AS avg_age_days
-FROM (SELECT type, JULIANDAY('now')-JULIANDAY(purchase_date) AS average
+SELECT type AS equipment_type, 
+       AVG(average) AS avg_age_days
+FROM (SELECT type, 
+             JULIANDAY('now')-JULIANDAY(purchase_date) AS average
       FROM equipment)
 GROUP BY type;

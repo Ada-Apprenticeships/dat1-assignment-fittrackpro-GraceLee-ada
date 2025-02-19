@@ -9,15 +9,25 @@ PRAGMA foreign_keys = ON;
 
 -- 1. List all classes with their instructors
 -- TODO: Write a query to list all classes with their instructors
-SELECT c.class_id, c.name AS class_name, s.first_name||' '||s.last_name AS instructor_name
+-- NOTES: Could do 2 LEFT JOINs but decided this way was formatted better
+SELECT c.class_id,
+       c.name AS class_name, 
+       s.first_name||' '||s.last_name AS instructor_name
 FROM classes c
-LEFT JOIN class_schedule cs, staff s ON s.staff_id = cs.staff_id AND cs.class_id = c.class_id;
+LEFT JOIN class_schedule cs, staff s ON s.staff_id = cs.staff_id 
+                                     AND cs.class_id = c.class_id;
 
 -- 2. Find available classes for a specific date
 -- TODO: Write a query to find available classes for a specific date
-SELECT c.class_id, c.name, STRFTIME('%T',cs.start_time) AS start_time, STRFTIME('%T',cs.end_time) AS end_time, (c.capacity-COUNT(ca.schedule_id)) AS available_spots
+-- NOTES: Could do 2 INNER JOINs but decided this way was formatted better
+SELECT c.class_id,
+       c.name,
+       STRFTIME('%T',cs.start_time) AS start_time, 
+       STRFTIME('%T',cs.end_time) AS end_time, 
+       (c.capacity-COUNT(ca.schedule_id)) AS available_spots
 FROM classes c 
-INNER JOIN class_schedule cs, class_attendance ca ON cs.class_id = c.class_id AND cs.schedule_id = ca.schedule_id
+INNER JOIN class_schedule cs, class_attendance ca ON cs.class_id = c.class_id 
+                                                  AND cs.schedule_id = ca.schedule_id
 WHERE DATE(cs.start_time) = '2025-02-01' AND ca.attendance_status = 'Registered'
 GROUP BY c.class_id;
 
@@ -33,10 +43,14 @@ WHERE member_id = 2 AND schedule_id = 7;
 
 -- 5. List top 3 most popular classes
 -- TODO: Write a query to list top 3 most popular classes
-SELECT c.class_id, c.name AS class_name, ca.class_attendance_id, COUNT(ca.schedule_id) AS registration_count
+-- NOTES: Could do 2 INNER JOINs but decided this way was formatted better 
+SELECT c.class_id, 
+       c.name AS class_name, 
+       ca.class_attendance_id,
+       COUNT(ca.schedule_id) AS registration_count
 FROM class_attendance ca
-INNER JOIN class_schedule cs ON cs.schedule_id = ca.schedule_id
-INNER JOIN classes c ON c.class_id = cs.class_id
+INNER JOIN class_schedule cs, classes c ON cs.schedule_id = ca.schedule_id 
+                                        AND c.class_id = cs.class_id
 WHERE ca.attendance_status = 'Registered'
 GROUP BY ca.schedule_id
 ORDER BY COUNT(*) DESC LIMIT 3;

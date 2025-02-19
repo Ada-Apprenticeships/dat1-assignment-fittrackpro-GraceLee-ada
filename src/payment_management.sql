@@ -40,6 +40,9 @@ WHERE year = STRFTIME('%Y', 'now', '-1 year');
 
 -- 3. Find all day pass purchases
 -- TODO: Write a query to find all day pass purchases
-SELECT payment_id, amount, payment_date, payment_method
+SELECT payment_id, 
+       amount, 
+       payment_date, 
+       payment_method
 FROM payments
 WHERE payment_type = 'Day pass';

@@ -14,7 +14,9 @@ INSERT INTO attendance(check_in_time, member_id, location_id) VALUES
 
 -- 2. Retrieve a member's attendance history
 -- TODO: Write a query to retrieve a member's attendance history
-SELECT date(check_in_time) AS visit_date, check_in_time, check_out_time
+SELECT DATE(check_in_time) AS visit_date, 
+       check_in_time, 
+       check_out_time
 FROM attendance
 WHERE member_id = 5;
 
@@ -23,10 +25,10 @@ WHERE member_id = 5;
 -- NOTES: Individual days for readability
 WITH dayList AS (
     SELECT 
-        strftime('%u', check_in_time) AS day_of_week, 
+        STRFTIME('%u', check_in_time) AS day_of_week, 
         COUNT(*) AS visit_count
     FROM attendance
-    GROUP BY strftime('%u', check_in_time)
+    GROUP BY STRFTIME('%u', check_in_time)
 )
 SELECT 
     CASE day_of_week
@@ -44,10 +46,13 @@ WHERE visit_count = (SELECT MAX(visit_count) FROM dayList);
 
 -- 4. Calculate the average daily attendance for each location
 -- TODO: Write a query to calculate the average daily attendance for each location
-SELECT location_name, AVG(day_count) AS avg_daily_attendance
-FROM (SELECT l.name AS location_name, date(a.check_in_time) AS day, COUNT(date(a.check_in_time)) AS day_count
+SELECT location_name, 
+       AVG(day_count) AS avg_daily_attendance
+FROM (SELECT l.name AS location_name, 
+             DATE(a.check_in_time) AS day, 
+             COUNT(DATE(a.check_in_time)) AS day_count
       FROM attendance a
       INNER JOIN locations l ON l.location_id = a.location_id
-      GROUP BY date(a.check_in_time)
+      GROUP BY DATE(a.check_in_time)
       ORDER BY location_name)
 GROUP BY location_name;

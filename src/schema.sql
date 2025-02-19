@@ -18,8 +18,8 @@ CREATE TABLE locations (
                                                                    --may not have a phone number
     email         VARCHAR(100)          CHECK(email GLOB '*@*.*'), --may not have an email
                                                                    --every email has at least an @ symbol and a . after
-    opening_hours VARCHAR(11)  NOT NULL                            --maximum format is 00:00-00:00 therefore 11 chars (can be single digit)
-                                        CHECK(opening_hours GLOB '[0-9][0-9]:[0-9][0-9]-[0-9][0-9]:[0-9][0-9]') --ensures digit format
+    opening_hours VARCHAR(11)  NOT NULL CHECK(opening_hours GLOB '[0-9][0-9]:[0-9][0-9]-[0-9][0-9]:[0-9][0-9]') --ensures digit format
+                                                                                                                --maximum format is 00:00-00:00 therefore 11 chars (can be single digit)
 );
 
 --Members-----------------------------------------
@@ -112,10 +112,12 @@ DROP TABLE IF EXISTS attendance;
 
 CREATE TABLE attendance(
     attendance_id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    check_in_time           VARCHAR(19) NOT NULL CHECK(check_in_time GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]'), --ensures datetime format
-    check_out_time          VARCHAR(19) NOT NULL CHECK(check_out_time GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]'),    --ensures datetime format
-    member_id               INTEGER     NOT NULL,
-    location_id             INTEGER     NOT NULL,
+    check_in_time           DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' CHECK(check_in_time GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]'), --ensures datetime format
+                                                                                                                                                                                     --default time
+    check_out_time          DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' CHECK(check_out_time GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]'),--ensures datetime format
+                                                                                                                                                                                     --default time
+    member_id               INTEGER  NOT NULL,
+    location_id             INTEGER  NOT NULL,
     FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
     FOREIGN KEY(location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );
