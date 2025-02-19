@@ -30,14 +30,15 @@ DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
     location_id   INTEGER PRIMARY KEY AUTOINCREMENT,
-    name          VARCHAR(100),
-    address       VARCHAR(100) --includes at least a city/town after a comma
-    CHECK(address LIKE '%,%'), 
-    phone_number  VARCHAR(20), --VARCHAR as different countries have different formats
-    email         VARCHAR(100)
-    CHECK(email LIKE '%@%'), --every email has an @ symbol
-    opening_hours VARCHAR(11) --maximum format is 00:00-00:00 therefore 11 chars (can be single digit)
-    -- CHECK(opening_hours GLOB'[0-9][0-9]:[0-9][0-9]-[0-9][0-9]:[0-9][0-9]')
+    name          VARCHAR(100) NOT NULL,
+    address       VARCHAR(100) NOT NULL
+    CHECK(address LIKE '%,%'),           --includes at least a city/town after a comma, 
+    phone_number  VARCHAR(20),           --VARCHAR as different countries have different formats
+                                         --may not have a phone number
+    email         VARCHAR(100)           --may not have an email
+    CHECK(email LIKE '%@%.%'),           --every email has at least an @ symbol and a . after
+    opening_hours VARCHAR(11)  NOT NULL  --maximum format is 00:00-00:00 therefore 11 chars (can be single digit)
+    CHECK(opening_hours GLOB '[0-9][0-9]:[0-9][0-9]-[0-9][0-9]:[0-9][0-9]') --ensures digit format (cannot do for digit at start)
 );
 
 --Members-----------------------------------------
@@ -45,15 +46,16 @@ DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
     member_id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    first_name              VARCHAR(100),
-    last_name               VARCHAR(100),
-    email                   VARCHAR(100)
-    CHECK(email LIKE '%@%'),
-    phone_number            VARCHAR(20), --VARCHAR as different countries have different formats
-    date_of_birth           DATE,
-    join_date               DATE,
-    emergency_contact_name  VARCHAR(100),
-    emergency_contact_phone VARCHAR(20)
+    first_name              VARCHAR(100) NOT NULL,
+    last_name               VARCHAR(100) NOT NULL,
+    email                   VARCHAR(100)           --may not have an email
+    CHECK(email LIKE '%@%.%'),                     --every email has at least an @ symbol and a . after
+    phone_number            VARCHAR(20),           --VARCHAR as different countries have different formats
+                                                   --may not have a phone number
+    date_of_birth           DATE         NOT NULL,
+    join_date               DATE         NOT NULL,
+    emergency_contact_name  VARCHAR(100) NOT NULL,
+    emergency_contact_phone VARCHAR(20)  NOT NULL
 );
 
 --Staff
