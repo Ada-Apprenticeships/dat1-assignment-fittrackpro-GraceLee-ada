@@ -39,7 +39,7 @@ VALUES (
     SELECT schedule_id
     FROM class_schedule
     WHERE class_id = 3
-    AND start_time LIKE '2025-02-01%'
+    AND start_time GLOB '2025-02-01%'
 ),
 11,'Registered');
 
