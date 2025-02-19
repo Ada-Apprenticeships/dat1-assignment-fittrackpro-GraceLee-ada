@@ -14,7 +14,7 @@ VALUES(50.00, DATETIME('now'), 'Credit Card', 'Monthly membership fee');
 
 -- 2. Calculate total revenue from membership fees for each month of the last year
 -- TODO: Write a query to calculate total revenue from membership fees for each month of the last year
---Notes: Individual months for readability
+-- NOTES: Individual months for readability, shows months from last year (2024)
 SELECT
     SUM(CASE WHEN month = '01' THEN amount ELSE 0 END) AS "JAN",
     SUM(CASE WHEN month = '02' THEN amount ELSE 0 END) AS "FEB",
