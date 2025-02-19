@@ -7,8 +7,6 @@
 -- Enable foreign key support
 PRAGMA foreign_key = ON;
 
-
-
 --Locations-------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS locations;
 

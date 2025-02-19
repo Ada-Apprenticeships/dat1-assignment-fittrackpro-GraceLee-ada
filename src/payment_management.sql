@@ -9,26 +9,33 @@ PRAGMA foreign_keys = ON;
 
 -- 1. Record a payment for a membership
 -- TODO: Write a query to record a payment for a membership
--- INSERT INTO payments(amount, payment_date, payment_method, payment_type)
--- VALUES(50.00, DATETIME('now'), 'Credit Card', 'Monthly membership fee');
+INSERT INTO payments(amount, payment_date, payment_method, payment_type)
+VALUES(50.00, DATETIME('now'), 'Credit Card', 'Monthly membership fee');
 
 -- 2. Calculate total revenue from membership fees for each month of the last year
 -- TODO: Write a query to calculate total revenue from membership fees for each month of the last year
 --Notes: Individual months for readability
 SELECT
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '01' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "JAN",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '02' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "FEB",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '03' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "MAR",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '04' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "APR",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '05' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "MAY",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '06' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "JUN",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '07' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "JUL",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '08' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "AUG",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '09' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "SEP",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '10' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "OCT",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '11' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "NOV",
-    SUM(CASE WHEN STRFTIME('%m', payment_date)= '12' AND STRFTIME('%Y', payment_date) = '2024' THEN amount ELSE 0 END) AS "DEC"        
-from payments;
+    SUM(CASE WHEN month = '01' THEN amount ELSE 0 END) AS "JAN",
+    SUM(CASE WHEN month = '02' THEN amount ELSE 0 END) AS "FEB",
+    SUM(CASE WHEN month = '03' THEN amount ELSE 0 END) AS "MAR",
+    SUM(CASE WHEN month = '04' THEN amount ELSE 0 END) AS "APR",
+    SUM(CASE WHEN month = '05' THEN amount ELSE 0 END) AS "MAY",
+    SUM(CASE WHEN month = '06' THEN amount ELSE 0 END) AS "JUN",
+    SUM(CASE WHEN month = '07' THEN amount ELSE 0 END) AS "JUL",
+    SUM(CASE WHEN month = '08' THEN amount ELSE 0 END) AS "AUG",
+    SUM(CASE WHEN month = '09' THEN amount ELSE 0 END) AS "SEP",
+    SUM(CASE WHEN month = '10' THEN amount ELSE 0 END) AS "OCT",
+    SUM(CASE WHEN month = '11' THEN amount ELSE 0 END) AS "NOV",
+    SUM(CASE WHEN month = '12' THEN amount ELSE 0 END) AS "DEC"
+FROM (
+    SELECT 
+        amount, 
+        STRFTIME('%m', payment_date) AS month,
+        STRFTIME('%Y', payment_date) AS year
+    FROM payments
+)
+WHERE year = STRFTIME('%Y', 'now', '-1 year');
 
 
 -- 3. Find all day pass purchases

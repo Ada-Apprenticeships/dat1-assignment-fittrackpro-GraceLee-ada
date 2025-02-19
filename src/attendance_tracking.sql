@@ -9,8 +9,8 @@ PRAGMA foreign_keys = ON;
 
 -- 1. Record a member's gym visit
 -- TODO: Write a query to record a member's gym visit
--- INSERT INTO attendance(check_in_time, member_id, location_id) VALUES
--- (DATETIME('now'), 7, 1);
+INSERT INTO attendance(check_in_time, member_id, location_id) VALUES
+(DATETIME('now'), 7, 1);
 
 -- 2. Retrieve a member's attendance history
 -- TODO: Write a query to retrieve a member's attendance history
