@@ -166,7 +166,7 @@ VALUES
 (7, 6, '2025-02-11', '13:00:00', '14:00:00', 'Yoga and stretching'),
 (9, 3, '2025-02-15', '08:00:00', '09:00:00', 'Morning cardio session'),
 (11, 7, '2025-02-18', '12:00:00', '13:00:00', 'Midday flexibility workout'),
-(13, 1, '2025-02-20', '15:00:00', '16:00:00', 'Afternoon endurance training');
+(13, 1, '2025-04-01', '15:00:00', '16:00:00', 'Afternoon endurance training');
 
 -- Sample data for member_health_metrics
 INSERT INTO member_health_metrics (member_id, measurement_date, weight, body_fat_percentage, muscle_mass, bmi)

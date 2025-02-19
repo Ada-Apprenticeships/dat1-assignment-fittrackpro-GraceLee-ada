@@ -35,9 +35,9 @@ CREATE TABLE locations (
     CHECK(address LIKE '%,%'), 
     phone_number  VARCHAR(20), --VARCHAR as different countries have different formats
     email         VARCHAR(100)
-    CHECK(email LIKE '%@%'),
+    CHECK(email LIKE '%@%'), --every email has an @ symbol
     opening_hours VARCHAR(11) --maximum format is 00:00-00:00 therefore 11 chars (can be single digit)
-    CHECK(opening_hours LIKE '%:%-%:%') 
+    -- CHECK(opening_hours GLOB'[0-9][0-9]:[0-9][0-9]-[0-9][0-9]:[0-9][0-9]')
 );
 
 --Members-----------------------------------------
@@ -69,7 +69,7 @@ CREATE TABLE staff(
     CHECK(position IN ('Trainer', 'Manager', 'Receptionist', 'Maintenance')),
     hire_date               DATE,
     location_id             INTEGER,
-    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+    FOREIGN KEY(location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );
 
 --Equipment-----------------------------------------------------------
@@ -84,7 +84,7 @@ CREATE TABLE equipment(
     last_maintenance_date   DATE,
     next_maintenance_date   DATE,
     location_id             INTEGER,
-    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+    FOREIGN KEY(location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );
 
 --Classes---------------------------------------------------------------------
@@ -97,7 +97,7 @@ CREATE TABLE classes(
     capacity                INTEGER,
     duration                INTEGER,
     location_id             INTEGER,
-    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+    FOREIGN KEY(location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );
 
 --Class Schedule--------------------------------------------------------
@@ -109,8 +109,8 @@ CREATE TABLE class_schedule(
     end_time                VARCHAR(19),
     class_id                INTEGER,
     staff_id                INTEGER,
-    FOREIGN KEY(class_id) REFERENCES classes(class_id),
-    FOREIGN KEY(staff_id) REFERENCES staff(staff_id)
+    FOREIGN KEY(class_id) REFERENCES classes(class_id) ON DELETE CASCADE,
+    FOREIGN KEY(staff_id) REFERENCES staff(staff_id) ON DELETE CASCADE
 );
 
 --Memberships-----------------------------------------------------
@@ -124,7 +124,7 @@ CREATE TABLE memberships(
     status                  VARCHAR(10)
     CHECK(status IN ('Active','Inactive')),
     member_id               INTEGER,
-    FOREIGN KEY(member_id) REFERENCES members(member_id)
+    FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
 );
 
 --Attendance--------------------------------------------------------
@@ -136,8 +136,8 @@ CREATE TABLE attendance(
     check_out_time          VARCHAR(19),
     member_id               INTEGER,
     location_id             INTEGER,
-    FOREIGN KEY(member_id) REFERENCES members(member_id)
-    FOREIGN KEY(location_id) REFERENCES locations(location_id)
+    FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
+    FOREIGN KEY(location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );
 
 --Class Attendance--------------------------------------------
@@ -149,8 +149,8 @@ CREATE TABLE class_attendance(
     CHECK(attendance_status IN ('Registered','Attended','Unattended')),
     member_id               INTEGER,
     schedule_id             INTEGER,
-    FOREIGN KEY(member_id) REFERENCES members(member_id)
-    FOREIGN KEY(schedule_id) REFERENCES class_schedule(schedule_id)
+    FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
+    FOREIGN KEY(schedule_id) REFERENCES class_schedule(schedule_id) ON DELETE CASCADE
 );
 
 --Payments---------------------------------------------------
@@ -166,7 +166,7 @@ CREATE TABLE payments(
     payment_type            VARCHAR(30)
     CHECK(payment_type IN ('Monthly membership fee', 'Day pass')),
     member_id               INTEGER,
-    FOREIGN KEY(member_id) REFERENCES members(member_id)
+    FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
 );
 
 --Personal Training Sessions---------------------------------------------------------
@@ -180,8 +180,8 @@ CREATE TABLE personal_training_sessions(
     notes                   VARCHAR(40),
     member_id               INTEGER,
     staff_id                INTEGER,
-    FOREIGN KEY(member_id) REFERENCES members(member_id),
-    FOREIGN KEY(staff_id) REFERENCES staff(staff_id)
+    FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY(staff_id) REFERENCES staff(staff_id) ON DELETE CASCADE
 );
 
 --Member health metrics--------------------------------------------------------
@@ -199,7 +199,7 @@ CREATE TABLE member_health_metrics(
     bmi                     REAL
     CHECK(bmi=ROUND(bmi,1)),
     member_id               INTEGER,
-    FOREIGN KEY(member_id) REFERENCES members(member_id)
+    FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
 );
 
 --Equipment Maintenance Log----------------------------------------------------------
@@ -211,8 +211,8 @@ CREATE TABLE equipment_maintenance_log(
     description               VARCHAR(100),
     staff_id                  INTEGER,
     equipment_id              INTEGER,
-    FOREIGN KEY(staff_id)     REFERENCES staff(staff_id),
-    FOREIGN KEY(equipment_id) REFERENCES equipment(equipment_id)
+    FOREIGN KEY(staff_id)     REFERENCES staff(staff_id) ON DELETE CASCADE,
+    FOREIGN KEY(equipment_id) REFERENCES equipment(equipment_id) ON DELETE CASCADE
 );
 
 .read ../scripts/sample_data.sql

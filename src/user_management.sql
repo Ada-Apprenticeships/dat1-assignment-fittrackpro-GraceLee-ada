@@ -14,9 +14,9 @@ FROM members;
 
 -- 2. Update a member's contact information
 -- TODO: Write a query to update a member's contact information
-UPDATE members
-SET phone_number = '123-123', email = 'emily.jones.updated@email.com' --When testing this, change to a different phone number to see difference
-WHERE member_id = 5;
+-- UPDATE members
+-- SET phone_number = '555-9876', email = 'emily.jones.updated@email.com'
+-- WHERE member_id = 5;
 
 -- 3. Count total number of members
 -- TODO: Write a query to count the total number of members
@@ -25,6 +25,7 @@ FROM members;
 
 -- 4. Find member with the most class registrations
 -- TODO: Write a query to find the member with the most class registrations
+--Notes: interpreted as resulting in multiple members if all have the highest registration amount
 WITH countList AS (SELECT m.member_id, COUNT(ca.member_id) AS registration_count
                    FROM members m 
                    INNER JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
@@ -37,6 +38,7 @@ WHERE cl.registration_count = (SELECT MAX(registration_count) FROM countList);
 
 -- 5. Find member with the least class registrations
 -- TODO: Write a query to find the member with the least class registrations
+--Notes: interpreted as resulting in multiple members if all have the lowest registration amount
 WITH countList AS (SELECT m.member_id, COUNT(ca.member_id) AS registration_count
                    FROM members m 
                    INNER JOIN class_attendance ca ON ca.member_id = m.member_id AND ca.attendance_status = 'Registered'
@@ -51,6 +53,6 @@ WHERE cl.registration_count = (SELECT MIN(registration_count) FROM countList);
 WITH countList AS (SELECT COUNT(member_id) AS count
         FROM class_attendance
         WHERE attendance_status = 'Attended')
-SELECT 1.0*cl.count/COUNT(*)*100 AS percentage
+SELECT 1.0*cl.count/COUNT(*)*100 AS percentage --Percentage formula
 FROM members m
 INNER JOIN countList cl;

@@ -11,24 +11,25 @@ PRAGMA foreign_keys = ON;
 -- TODO: Write a query to list all classes with their instructors
 SELECT c.class_id, c.name AS class_name, s.first_name||' '||s.last_name AS instructor_name
 FROM classes c
-LEFT OUTER JOIN class_schedule cs, staff s ON s.staff_id = cs.staff_id AND cs.class_id = c.class_id;
+LEFT JOIN class_schedule cs, staff s ON s.staff_id = cs.staff_id AND cs.class_id = c.class_id;
 
 -- 2. Find available classes for a specific date
 -- TODO: Write a query to find available classes for a specific date
-SELECT c.class_id, c.name, cs.start_time, cs.end_time, c.capacity AS available_spots
+SELECT c.class_id, c.name, STRFTIME('%T',cs.start_time) AS start_time, STRFTIME('%T',cs.end_time) AS end_time, (c.capacity-COUNT(ca.schedule_id)) AS available_spots
 FROM classes c 
-INNER JOIN class_schedule cs ON cs.class_id = c.class_id AND date(cs.start_time) = '2025-02-01';
-
+INNER JOIN class_schedule cs, class_attendance ca ON cs.class_id = c.class_id AND cs.schedule_id = ca.schedule_id
+WHERE DATE(cs.start_time) = '2025-02-01' AND ca.attendance_status = 'Registered'
+GROUP BY c.class_id;
 
 -- 3. Register a member for a class
 -- TODO: Write a query to register a member for a class
--- INSERT INTO class_attendance(attendance_status, member_id, schedule_id)
--- VALUES('Registered', 11, 7);
+INSERT INTO class_attendance(attendance_status, member_id, schedule_id)
+VALUES('Registered', 11, 7);
 
 -- 4. Cancel a class registration
 -- TODO: Write a query to cancel a class registration
--- DELETE FROM class_attendance
--- WHERE member_id = 2 AND schedule_id = 7;
+DELETE FROM class_attendance
+WHERE member_id = 2 AND schedule_id = 7;
 
 -- 5. List top 3 most popular classes
 -- TODO: Write a query to list top 3 most popular classes
