@@ -7,23 +7,7 @@
 -- Enable foreign key support
 PRAGMA foreign_key = ON;
 
--- TODO: Create the following tables:
--- 1. locations
--- 2. members
--- 3. staff
--- 4. equipment
--- 5. classes
--- 6. class_schedule
--- 7. memberships
--- 8. attendance
--- 9. class_attendance
--- 10. payments
--- 11. personal_training_sessions
--- 12. member_health_metrics
--- 13. equipment_maintenance_log
 
--- After creating the tables, you can import the sample data using:
--- `.read data/sample_data.sql` in a sql file or `npm run import` in the terminal
 
 --Locations-------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS locations;
@@ -121,7 +105,7 @@ CREATE TABLE memberships(
     start_date              DATE        NOT NULL    CHECK(start_date GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'), --ensures date format
     end_date                DATE        NOT NULL    CHECK(end_date GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),   --ensures date format
     status                  VARCHAR(10) NOT NULL    CHECK(status IN ('Active','Inactive')),
-    member_id               INTEGER     NOT NULL,
+    member_id               INTEGER     NOT NULL    CHECK(typeof(member_id) = 'integer'),
     FOREIGN KEY(member_id) REFERENCES members(member_id) ON DELETE CASCADE
 );
 
@@ -205,4 +189,5 @@ CREATE TABLE equipment_maintenance_log(
     FOREIGN KEY(equipment_id) REFERENCES equipment(equipment_id) ON DELETE CASCADE
 );
 
+--imports sample data
 .read ../scripts/sample_data.sql

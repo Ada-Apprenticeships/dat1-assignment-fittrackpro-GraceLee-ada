@@ -81,7 +81,7 @@ VALUES
 -- Sample data for memberships
 INSERT INTO memberships (member_id, type, start_date, end_date, status)
 VALUES
-(1, 'Premium', '2024-11-01', '2025-10-31', 'Active'),
+('1', 'Premium', '2024-11-01', '2025-10-31', 'Active'),
 (2, 'Basic', '2024-11-05', '2025-11-04', 'Active'),
 (3, 'Premium', '2024-11-10', '2025-11-09', 'Active'),
 (4, 'Basic', '2024-11-15', '2025-11-14', 'Active'),
