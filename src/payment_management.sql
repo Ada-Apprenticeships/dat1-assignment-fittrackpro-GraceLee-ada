@@ -9,8 +9,8 @@ PRAGMA foreign_keys = ON;
 
 -- 1. Record a payment for a membership
 -- TODO: Write a query to record a payment for a membership
-INSERT INTO payments(amount, payment_date, payment_method, payment_type)
-VALUES(50.00, DATETIME('now'), 'Credit Card', 'Monthly membership fee');
+INSERT INTO payments(amount, payment_date, payment_method, payment_type, member_id)
+VALUES(50.00, DATETIME('now'), 'Credit Card', 'Monthly membership fee', 11);
 
 -- 2. Calculate total revenue from membership fees for each month of the last year
 -- TODO: Write a query to calculate total revenue from membership fees for each month of the last year

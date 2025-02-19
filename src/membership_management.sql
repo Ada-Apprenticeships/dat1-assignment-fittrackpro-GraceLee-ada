@@ -30,7 +30,7 @@ GROUP BY type;
 
 -- 3. Identify members with expiring memberships this year
 -- TODO: Write a query to identify members with expiring memberships this year
---NOTES: Interpreted as this year, ending 2025-12-31
+--NOTES: Interpreted as end of this year (2025-12-31 as of now) and the members which are currently active
 SELECT m.member_id, 
        m.first_name, 
        m.last_name,

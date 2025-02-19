@@ -136,7 +136,7 @@ CREATE TABLE class_attendance(
 
 --Payments---------------------------------------------------
 DROP TABLE IF EXISTS payments;
-
+ 
 CREATE TABLE payments(
     payment_id              INTEGER PRIMARY KEY AUTOINCREMENT,
     amount                  REAL        NOT NULL    CHECK(amount=ROUND(amount,2)), --limits to 2 decimal places
